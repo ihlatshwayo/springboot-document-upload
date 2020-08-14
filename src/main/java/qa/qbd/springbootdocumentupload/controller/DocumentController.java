@@ -24,8 +24,8 @@ public class DocumentController {
 
 
 
-    @PostMapping("/add_document")
-    public Object addDocument(MultipartFile multipartFile, @RequestHeader("userId") int userId) throws IOException {
+    @PostMapping("/add_document/{userId}")
+    public Object addDocument(MultipartFile multipartFile, @PathVariable int userId) throws IOException {
 
         documentService.addDocument(multipartFile, userId);
         return "Successfully added s document";
