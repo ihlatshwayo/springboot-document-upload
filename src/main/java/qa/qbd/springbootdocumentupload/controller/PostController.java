@@ -25,10 +25,11 @@ public class PostController {
     @GetMapping("/posts/{id}/{userId}/{docId}")
     public void getPostAndAddToDocument(@PathVariable long id,@PathVariable int userId,@PathVariable long docId){
         Post post = postServiceProxy.findPostById(id);
-        System.out.println("post title: "+post.getTitle());
         post.setUserId(userId);
         Optional<Document> userDocument = documentRepository.findDocumentByIdAndUserId(docId,userId);
-        userDocument.get().setPost(post);
+
+        userDocument.ifPresent(document -> document.setPost(post));
+
         documentRepository.save(userDocument.get());
 
     }
