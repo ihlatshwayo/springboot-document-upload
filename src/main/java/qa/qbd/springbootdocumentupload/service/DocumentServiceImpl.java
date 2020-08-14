@@ -53,16 +53,17 @@ public class DocumentServiceImpl  implements DocumentService{
     }
 
     @Override
-    public String addPost(Post post) {
-        Optional<Document> document =  documentRepository.findById(1L) ;
+    public String addPost(Post post, int userId) {
+        //design user document retrival
+        //Optional<Document> document =  documentRepository.findByUserId(userId);
 
-        document.get().setPost(post);
+       // document.get().setPost(post);
         postRepository.save(post);
         return "post succesfully added to document";
     }
 
     @Override
-    public String addComment(Comment comment) {
+    public String addComment(Comment comment, int userId) {
         commentRepository.save(comment);
         return "Comment succesfully added to document";
     }
