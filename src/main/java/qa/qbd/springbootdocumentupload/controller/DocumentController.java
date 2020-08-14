@@ -32,7 +32,7 @@ public class DocumentController {
     }
 
     @GetMapping("/get_user_document/{userId}")
-    public List<Document> getUserByDocument(@PathVariable int userId){
+    public List<Document> getUserDocumentById(@PathVariable int userId){
         return documentService.getUserDocuments(userId);
     }
 
@@ -41,9 +41,5 @@ public class DocumentController {
 
         return documentService.deleteDocument(documentId);
     }
-    /*@RequestMapping("/posts/{id}")
-    public void addPostToDocument(@PathVariable long id){
-        Post post = postServiceProxy.findPostById(id);
 
-    }*/
 }
