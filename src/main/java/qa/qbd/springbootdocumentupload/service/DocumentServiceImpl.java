@@ -31,10 +31,7 @@ public class DocumentServiceImpl  implements DocumentService{
         document.setDoc(multipartFile.getBytes());
         document.setFileName(multipartFile.getOriginalFilename());
         document.setUserId(userId);
-        
-        Post post = new Post();
-        post.setBody("Given");
-        document.setPost(post);
+
 ;       documentRepository.save(document);
 
         return null;
