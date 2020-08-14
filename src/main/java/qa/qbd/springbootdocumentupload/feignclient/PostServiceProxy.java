@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import qa.qbd.springbootdocumentupload.entity.Post;
 
 
-@FeignClient(url = "https://jsonplaceholder.typicode.com")
+@FeignClient(name="jsonplaceholder", url = "https://jsonplaceholder.typicode.com")
 public interface PostServiceProxy {
-    @RequestMapping("/post/{id}")
+    @RequestMapping("/posts/{id}")
     public Post findPostById(@PathVariable(value="id") Long id);
+
+    @RequestMapping("/posts/{id}/comments")
+    public void addCommentToDocument(@PathVariable long id);
+
+    }
 }
