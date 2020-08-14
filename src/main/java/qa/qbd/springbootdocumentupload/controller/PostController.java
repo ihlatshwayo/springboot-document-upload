@@ -1,6 +1,7 @@
 package qa.qbd.springbootdocumentupload.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,8 @@ public class PostController {
     @Autowired
     PostServiceProxy postServiceProxy;
 
-    @RequestMapping("/posts/{id}/{userId}/{docId}")
-    public void addPostToDocument(@PathVariable long id,@PathVariable int userId,@PathVariable long docId){
+    @GetMapping("/posts/{id}/{userId}/{docId}")
+    public void getPostAndAddToDocument(@PathVariable long id,@PathVariable int userId,@PathVariable long docId){
         Post post = postServiceProxy.findPostById(id);
         System.out.println("post title: "+post.getTitle());
         post.setUserId(userId);
