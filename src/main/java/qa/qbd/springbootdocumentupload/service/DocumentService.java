@@ -17,7 +17,7 @@ public interface DocumentService {
 
     String deleteDocument(long documentId);
 
-    String addPost(Post post);
+    String addPost(Post post, int userId);
 
-    String addComment(Comment comment);
+    String addComment(Comment comment, int userId);
 }
