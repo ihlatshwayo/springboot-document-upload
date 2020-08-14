@@ -24,7 +24,7 @@ public class Post {
     @OneToMany( cascade = CascadeType.ALL,
     orphanRemoval = true,
     fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     private Set<Comment> comments;
 
 
