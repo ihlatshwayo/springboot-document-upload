@@ -14,5 +14,5 @@ public interface PostServiceProxy {
     @RequestMapping("/posts/{id}/comments")
     public void addCommentToDocument(@PathVariable long id);
 
-    }
+
 }
