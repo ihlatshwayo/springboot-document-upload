@@ -17,7 +17,7 @@ public class Comment {
     @GeneratedValue
     private long id;
 
-    private int post_id;
+    private int postId;
 
     private int  userId;
 
