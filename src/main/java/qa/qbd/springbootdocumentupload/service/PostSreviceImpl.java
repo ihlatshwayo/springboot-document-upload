@@ -7,10 +7,11 @@ import qa.qbd.springbootdocumentupload.entity.Document;
 import qa.qbd.springbootdocumentupload.entity.Post;
 import qa.qbd.springbootdocumentupload.feignclient.PostServiceProxy;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostSreviceImpl  implements PostService{
+public class PostServiceImpl  implements PostService{
 
     @Autowired
     PostServiceProxy postServiceProxy;
@@ -30,5 +31,10 @@ public class PostSreviceImpl  implements PostService{
 
         documentRepository.save(userDocument.get());
 
+    }
+
+    @Override
+    public List<Post> getUserPosts(int userId) {
+        return null;
     }
 }
