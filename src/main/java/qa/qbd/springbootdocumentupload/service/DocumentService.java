@@ -1,5 +1,6 @@
 package qa.qbd.springbootdocumentupload.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import qa.qbd.springbootdocumentupload.entity.Comment;
 import qa.qbd.springbootdocumentupload.entity.Document;
@@ -17,7 +18,7 @@ public interface DocumentService {
 
     String deleteDocument(long documentId);
 
-    String addPost(Post post, int userId);
 
-    String addComment(Comment comment, int userId);
+
+
 }
