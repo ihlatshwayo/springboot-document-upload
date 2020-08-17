@@ -3,10 +3,9 @@ package qa.qbd.springbootdocumentupload.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Setter
@@ -17,14 +16,16 @@ public class Comment {
     @GeneratedValue
     private long id;
 
-    private int postId;
-
-    private int  userId;
+    private long  userId;
 
     private String email;
 
     private String body;
 
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
 }
