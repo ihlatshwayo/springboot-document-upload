@@ -12,11 +12,11 @@ public class Document {
     @Id
     @GeneratedValue
     private long id;
-    private int userId;
+    private long userId;
     private String fileName;
     @Lob
     private byte[] doc;
 
-    @OneToOne(targetEntity = Post.class, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Post.class,orphanRemoval = true, cascade = CascadeType.ALL)
     private Post post;
 }
