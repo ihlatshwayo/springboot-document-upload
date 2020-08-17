@@ -2,24 +2,21 @@ package qa.qbd.springbootdocumentupload.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import qa.qbd.springbootdocumentupload.dao.CommentRepository;
 import qa.qbd.springbootdocumentupload.dao.DocumentRepository;
 import qa.qbd.springbootdocumentupload.dao.PostRepository;
 import qa.qbd.springbootdocumentupload.entity.*;
-import qa.qbd.springbootdocumentupload.feignclient.PostServiceProxy;
+import qa.qbd.springbootdocumentupload.exceptions.DocumentNotFoundException;
+import qa.qbd.springbootdocumentupload.exceptions.IncorrectFileTypeException;
+import qa.qbd.springbootdocumentupload.exceptions.PostNotFoundException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DocumentServiceImpl  implements DocumentService {
 
-
-    @Autowired
-    private PostRepository postRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -29,29 +26,61 @@ public class DocumentServiceImpl  implements DocumentService {
 
 
     @Override
-    public Object addDocument(MultipartFile multipartFile, int userId) throws IOException {
+    public Object addDocument(MultipartFile multipartFile, long userId) throws IOException, IncorrectFileTypeException, Exception {
 
-        Document document = new Document();
+        try {
 
-        document.setDoc(multipartFile.getBytes());
-        document.setFileName(multipartFile.getOriginalFilename());
-        document.setUserId(userId);
+            if (!multipartFile.getContentType().equalsIgnoreCase("application/pdf")){
+                throw new IncorrectFileTypeException("Only PDF documents supported");
+            }
 
-        ;
-        documentRepository.save(document);
+            Document document = new Document();
 
-        return null;
+            document.setDoc(multipartFile.getBytes());
+            document.setFileName(multipartFile.getOriginalFilename());
+            document.setUserId(userId);
+
+            documentRepository.save(document);
+
+
+
+        }catch(Exception e){
+            throw e;
+        }
+
+        return "Document successfully uploaded.";
     }
 
     @Override
-    public List<Document> getUserDocuments(int userId) {
+    public List<Document> getUserDocuments(long userId) throws DocumentNotFoundException, Exception{
 
-        return documentRepository.findByUserId(userId);
+        try {
+
+            List<Document> documents = documentRepository.findByUserId(userId);
+
+            if (documents.isEmpty() ){
+                throw new DocumentNotFoundException("Documents not found for user " + userId);
+            }
+
+            return documents;
+
+        }catch(Exception e){
+            throw e;
+        }
+
     }
 
     @Override
-    public String deleteDocument(long documentId) {
-        documentRepository.deleteById(documentId);
+    public String deleteDocument(long documentId) throws Exception{
+
+        try {
+
+            documentRepository.deleteById(documentId);
+
+        }catch(Exception e){
+            throw e;
+        }
+
         return "Successfully deleted the document";
     }
 
