@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,18 +17,27 @@ public class Post {
     @GeneratedValue
     private long id;
 
-    private int userId;
+    private long userId;
 
     private String title;
 
     private String body;
 
-    @OneToMany( cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL ,
     orphanRemoval = true,
     fetch = FetchType.LAZY)
-    @JoinColumn(name = "postId")
-    private Set<Comment> comments;
+    //@JoinColumn(name = "post_id")
+    private List<Comment> comments;
 
 
+ /*   @OneToMany(mappedBy = "post")
+    private Collection<Comment> comment;
 
+    public Collection<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(Collection<Comment> comment) {
+        this.comment = comment;
+    }*/
 }
