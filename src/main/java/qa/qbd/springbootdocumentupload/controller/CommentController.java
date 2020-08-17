@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import qa.qbd.springbootdocumentupload.dao.PostRepository;
 import qa.qbd.springbootdocumentupload.entity.Comment;
-import qa.qbd.springbootdocumentupload.feignclient.PostServiceProxy;
+import qa.qbd.springbootdocumentupload.feignclient.FeignDocumentClient;
+import qa.qbd.springbootdocumentupload.service.CommentService;
 
 import java.util.List;
 
@@ -14,15 +15,27 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    PostServiceProxy postServiceProxy;
+    FeignDocumentClient feignDocumentClient;
+
+    @Autowired
+    CommentService commentService;
 
     @Autowired
     PostRepository postRepository;
 
-    @GetMapping("/posts/{postId}/comments/{userId}")
-    public void getCommentAndAddToDocumentPost(@PathVariable long postId, @PathVariable int userId){
-
-
-
+    @GetMapping("/getCommentAndAddToPost/{postId},{userId}")
+    public void getCommentAndAddToPost(@PathVariable long postId, long userId){
+        commentService.getCommentAndAddToPost(postId, userId);
     }
+
+        @GetMapping("/getPostComments/{postId}")
+        public List<Comment> getPostComments(@PathVariable long postId){
+        return commentService.getPostComment(postId);
+        }
+
+
+
+
+
+
 }
