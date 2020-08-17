@@ -7,5 +7,6 @@ import qa.qbd.springbootdocumentupload.entity.*;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    public Post findPostById(int userId);
+    Post findPostByUserId(long userId);
+
 }
